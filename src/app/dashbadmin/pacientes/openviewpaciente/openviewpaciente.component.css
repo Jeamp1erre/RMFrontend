@@ -1,0 +1,60 @@
+.container {
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: 0;
+}
+
+.eliminar-btn {
+    color: red;
+}
+
+.eliminar-btn:hover {
+    color: darkred;
+}
+
+svg {
+    transition: transform 0.3s ease, cursor 0.3s ease;
+    cursor: pointer;
+}
+
+svg:hover {
+    transform: scale(1.1);
+}
+
+svg:hover {
+    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+.table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.table th,
+.table td {
+    width: 25%;
+    padding: 10px;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.mat-form-field {
+    width: 100%;
+}

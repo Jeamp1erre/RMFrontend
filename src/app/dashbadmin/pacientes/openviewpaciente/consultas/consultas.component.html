@@ -1,0 +1,110 @@
+<h2 class="text-center">GESTIÓN DE CONSULTAS</h2>
+
+<div class="row">
+    <button mat-fab extended (click)="openAddConsultaDialog()">Agregar Consulta</button>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Buscar por Motivo de Consulta</mat-label>
+        <input matInput (input)="onSearchChange($event)" placeholder="Escribe el motivo...">
+    </mat-form-field>
+
+
+</div>
+
+<div *ngIf="isLoading" class="loading">Cargando consultas...</div>
+
+<div *ngIf="!isLoading">
+    <table mat-table [dataSource]="filteredConsultas" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="fechaConsulta">
+            <th mat-header-cell *matHeaderCellDef> Fecha de Consulta </th>
+            <td mat-cell *matCellDef="let consulta">
+                {{ consulta.fechaConsulta | date:'yyyy-MM-dd' }}<br> {{ consulta.fechaConsulta | date:'HH:mm:ss' }}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="motivoConsulta">
+            <th mat-header-cell *matHeaderCellDef> Motivo de Consulta </th>
+            <td mat-cell *matCellDef="let consulta">
+                {{ consulta.motivoConsulta }}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="agregarDiagnostico">
+            <th mat-header-cell *matHeaderCellDef> Agregar Diagnóstico </th>
+            <td mat-cell *matCellDef="let consulta">
+                <button mat-icon-button (click)="onEditConsulta(consulta)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="onAddDiagnostico(consulta.id)">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="medicoDiagnostico">
+            <th mat-header-cell *matHeaderCellDef> Datos de Diagnóstico </th>
+            <td mat-cell *matCellDef="let consulta">
+                <div *ngFor="let diagnostico of consulta.diagnosticos" class="diagnostico-row">
+                    <div class="input-container">
+                        <span class="field-display">{{ diagnostico.nombreDoctor }}</span>
+                    </div>
+
+                    <div class="input-container">
+                        <span class="field-display">{{ diagnostico.descripcionDiagnostico }}</span>
+                    </div>
+                    <button mat-icon-button (click)="onEditDiagnostico(diagnostico)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="onDeleteDiagnostico(diagnostico.id, consulta.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+
+                    <button mat-raised-button color="primary" (click)="onAddTratamiento(diagnostico.id)">
+                        Agregar Tratamiento
+                    </button>
+
+                    <div class="tratamientos-list">
+                        <div *ngFor="let tratamiento of diagnostico.tratamientos" class="tratamiento-row">
+                            <div class="tratamiento-item">
+                                <div class="input-container">
+                                    <span class="field-display">{{ tratamiento.descripcionTratamiento }}</span>
+                                </div>
+
+                                <div class="input-container">
+                                    <span class="field-display">{{ tratamiento.duracionDias }} días</span>
+                                </div>
+                                <button mat-icon-button (click)="onEditTratamiento(tratamiento)">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <button mat-icon-button color="warn" (click)="onDeleteTratamiento(tratamiento.id,diagnostico.id)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let consulta">
+                <button mat-raised-button color="warn" (click)="onDeleteConsulta(consulta)">
+                    Eliminar consulta
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['fechaConsulta', 'motivoConsulta', 'agregarDiagnostico', 'medicoDiagnostico', 'acciones']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['fechaConsulta', 'motivoConsulta', 'agregarDiagnostico', 'medicoDiagnostico', 'acciones'];"></tr>
+    </table>
+
+    <div *ngIf="filteredConsultas.length === 0">
+        <p>No hay consultas disponibles.</p>
+    </div>
+
+    <mat-paginator [length]="filteredConsultas.length" [pageSize]="pageSize" [pageSizeOptions]="[10, 50, 100]" (page)="onPaginateChange($event)">
+    </mat-paginator>
+</div>

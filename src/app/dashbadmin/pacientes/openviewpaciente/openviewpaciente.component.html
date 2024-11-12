@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" (click)="volver()" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
+    <path d="m308.38-434.94 202.61 202.85q13.31 13.31 13.43 31.8.12 18.48-12.76 31.85-13.31 13.4-32.18 13.4-18.87 0-31.57-13.55L168.25-448.01q-6.73-6.34-9.97-14.36-3.24-8.01-3.24-17.55 0-8.64 3.24-16.64t9.97-14.34l281-280.75q13.38-13.39 31.79-13.39 18.41 0 31.71 13.39 12.88 13.46 12.88 31.94t-12.88 31.14L308.38-524.2h470.57q18.67 0 31.56 12.92 12.9 12.93 12.9 31.37 0 19.36-12.9 32.16-12.89 12.81-31.56 12.81H308.38Z"/>
+</svg>
+
+<mat-tab-group>
+    <mat-tab label="Historia Médica">
+        <div class="container">
+            <h2>Historia Médica del Paciente</h2>
+
+            <div class="button-container">
+                <button type="button" mat-raised-button color="warn" (click)="cancelChanges()">Cancelar cambios</button>
+
+                <button type="submit" mat-raised-button color="primary" (click)="save()">   
+                    <mat-badge   *ngIf="cambioCount !== 0"  [matBadge]="cambioCount"  matBadgeColor="accent" matBadgePosition="above after" class="badge"></mat-badge>
+                    Guardar cambios</button>
+            </div>
+
+            <form [formGroup]="historiaForm">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Antecedentes Médicos</th>
+                            <th>Cirugías Anteriores</th>
+                            <th>Alergias</th>
+                            <th>Antecedentes Familiares</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div formArrayName="antecedentesMedicos">
+                                    <div *ngFor="let control of antecedentesMedicos.controls; let i = index">
+                                        <mat-form-field appearance="fill">
+                                            <input matInput placeholder="Antecedente Médico" [formControlName]="i">
+                                        </mat-form-field>
+                                        <button mat-icon-button color="warn" (click)="deleteEntrada('antecedentesMedicos', i)">
+                                            <mat-icon>delete</mat-icon>
+                                          </button>
+                                    </div>
+                                    <button mat-icon-button color="primary" (click)="addEntrada('antecedentesMedicos')">
+                                        <mat-icon>add_circle</mat-icon>
+                                      </button>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div formArrayName="cirugiasAnteriores">
+                                    <div *ngFor="let control of cirugiasAnteriores.controls; let i = index">
+                                        <mat-form-field appearance="fill">
+                                            <input matInput placeholder="Cirugía Anterior" [formControlName]="i">
+                                        </mat-form-field>
+                                        <button mat-icon-button color="warn" (click)="deleteEntrada('cirugiasAnteriores', i)">
+                                            <mat-icon>delete</mat-icon>
+                                          </button>
+                                    </div>
+                                    <button mat-icon-button color="primary" (click)="addEntrada('cirugiasAnteriores')">
+                                        <mat-icon>add_circle</mat-icon>
+                                      </button>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div formArrayName="alergias">
+                                    <div *ngFor="let control of alergias.controls; let i = index">
+                                        <mat-form-field appearance="fill">
+                                            <input matInput placeholder="Alergia" [formControlName]="i">
+                                        </mat-form-field>
+                                        <button mat-icon-button color="warn" (click)="deleteEntrada('alergias', i)">
+                                            <mat-icon>delete</mat-icon>
+                                          </button>
+                                    </div>
+                                    <button mat-icon-button color="primary" (click)="addEntrada('alergias')">
+                                        <mat-icon>add_circle</mat-icon>
+                                      </button>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div formArrayName="antecedentesFamiliares">
+                                    <div *ngFor="let control of antecedentesFamiliares.controls; let i = index">
+                                        <mat-form-field appearance="fill">
+                                            <input matInput placeholder="Antecedente Familiar" [formControlName]="i">
+                                        </mat-form-field>
+                                        <button mat-icon-button color="warn" (click)="deleteEntrada('antecedentesFamiliares', i)">
+                                            <mat-icon>delete</mat-icon>
+                                          </button>
+                                    </div>
+                                    <button mat-icon-button color="primary" (click)="addEntrada('antecedentesFamiliares')">
+                                        <mat-icon>add_circle</mat-icon>
+                                      </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </mat-tab>
+
+    <mat-tab label="Consultas">
+        <app-consultas></app-consultas>
+    </mat-tab>
+</mat-tab-group>

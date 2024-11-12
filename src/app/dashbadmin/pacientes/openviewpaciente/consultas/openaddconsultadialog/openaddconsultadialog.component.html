@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Crear nueva consulta</h2>
+<mat-dialog-content>
+    <form [formGroup]="consultaForm">
+        <mat-form-field appearance="fill">
+            <mat-label>Motivo de la consulta</mat-label>
+            <input matInput formControlName="motivoConsulta" placeholder="Ingrese el motivo de la consulta">
+            <mat-error *ngIf="consultaForm?.get('motivoConsulta')?.hasError('required')">
+                El motivo de la consulta es requerido
+            </mat-error>
+        </mat-form-field>
+
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button color="warn" (click)="onClose()">Cancelar</button>
+    <button mat-button color="primary" (click)="onCreateConsulta()">Crear Consulta</button>
+</mat-dialog-actions>

@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>Agregar Paciente</h2>
+<mat-dialog-content>
+    <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput [(ngModel)]="newPaciente.nombre" placeholder="Escribe el nombre" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Apellido</mat-label>
+        <input matInput [(ngModel)]="newPaciente.apellido" placeholder="Escribe el apellido" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>DNI</mat-label>
+        <input matInput [(ngModel)]="newPaciente.dni" placeholder="Escribe el DNI" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Fecha de Nacimiento</mat-label>
+        <input matInput [(ngModel)]="newPaciente.fechaNacimiento" [matDatepicker]="picker" placeholder="Selecciona una fecha" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Género</mat-label>
+        <mat-select [(ngModel)]="newPaciente.genero" required>
+            <mat-option value="masculino">Masculino</mat-option>
+            <mat-option value="femenino">Femenino</mat-option>
+            <mat-option value="otro">Otro</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Teléfono</mat-label>
+        <input matInput [(ngModel)]="newPaciente.telefono" placeholder="Escribe el teléfono" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="newPaciente.email" placeholder="Escribe el email" required>
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button color="warn" (click)="onCancel()">Cancelar</button>
+    <button mat-button color="primary" (click)="onAdd()">Agregar</button>
+</mat-dialog-actions>

@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Agregar Tratamiento</h2>
+<mat-dialog-content>
+    <div class="form-container">
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Descripción del Tratamiento</mat-label>
+            <input matInput [(ngModel)]="descripcionTratamiento" placeholder="Descripción del tratamiento" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Duración (días)</mat-label>
+            <input matInput type="number" [(ngModel)]="duracionDias" placeholder="Duración del tratamiento" required>
+        </mat-form-field>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button color="warn" (click)="onCancel()">Cancelar</button>
+    <button mat-button (click)="onSave()" [disabled]="!descripcionTratamiento || !duracionDias">Guardar</button>
+</mat-dialog-actions>
